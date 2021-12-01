@@ -39,7 +39,7 @@ func part2() {
 	var windowSize int = 3
 	var count int
 	data := getDataArray()
-	for i, _ := range data[:len(data)-(windowSize)] {
+	for i := range data[:len(data)-(windowSize)] {
 		a := Sum(data[i : i+3])
 		b := Sum(data[i+1 : i+4])
 		if b > a {
@@ -53,7 +53,7 @@ func part1() {
 	data := getDataArray()
 	var count int
 	var prev int = data[0]
-	for i, _ := range data[0:] {
+	for i := range data[0:] {
 		cur := data[i]
 		if cur > prev {
 			count++
