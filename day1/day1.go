@@ -12,11 +12,7 @@ func main() {
 	part2()
 }
 
-func part2() {
-
-	var windowSize int = 3
-	var windowSums []int
-
+func getDataArray() []int {
 	file, _ := os.Open("./day1Input.txt")
 	defer file.Close()
 
@@ -27,6 +23,15 @@ func part2() {
 		i, _ := strconv.ParseInt(scanner.Text(), 10, 32)
 		lines = append(lines, int(i))
 	}
+	return lines
+}
+
+func part2() {
+
+	var windowSize int = 3
+	var windowSums []int
+	lines := getDataArray()
+
 	for i := 0; i < len(lines)-(windowSize-1); i++ {
 		windowSums = append(windowSums, lines[i]+lines[i+1]+lines[i+2])
 	}
@@ -44,17 +49,11 @@ func part2() {
 }
 
 func part1() {
-	file, _ := os.Open("./day1Input.txt")
-	defer file.Close()
-	scanner := bufio.NewScanner(file)
-	scanner.Split(bufio.ScanWords)
-	var count int64
-	scanner.Scan()
-	prev, _ := strconv.ParseInt(scanner.Text(), 10, 64)
-	//fmt.Println(prev)
-	for scanner.Scan() {
-		cur, _ := strconv.ParseInt(scanner.Text(), 10, 64)
-		//fmt.Println(cur)
+	data := getDataArray()
+	var count int
+	var prev int = data[0]
+	for i, _ := range data[0:] {
+		cur := data[i]
 		if cur > prev {
 			count++
 		}
