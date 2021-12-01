@@ -47,7 +47,6 @@ func part2() {
 		}
 	}
 	fmt.Printf("Part2 count: %d\n", count)
-
 }
 
 func part1() {
