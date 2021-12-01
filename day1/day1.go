@@ -26,23 +26,25 @@ func getDataArray() []int {
 	return lines
 }
 
+func Sum(arr []int) int {
+	var value int
+	for _, v := range arr {
+		value += v
+	}
+	return value
+}
+
 func part2() {
 
 	var windowSize int = 3
-	var windowSums []int
-	lines := getDataArray()
-
-	for i := 0; i < len(lines)-(windowSize-1); i++ {
-		windowSums = append(windowSums, lines[i]+lines[i+1]+lines[i+2])
-	}
 	var count int
-	var prev int = windowSums[0]
-	for i := 1; i < len(windowSums); i++ {
-		cur := windowSums[i]
-		if cur > prev {
+	data := getDataArray()
+	for i, _ := range data[:len(data)-(windowSize)] {
+		a := Sum(data[i : i+3])
+		b := Sum(data[i+1 : i+4])
+		if b > a {
 			count++
 		}
-		prev = cur
 	}
 	fmt.Printf("Part2 count: %d\n", count)
 
