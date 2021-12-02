@@ -18,6 +18,8 @@ type Instruction struct {
 	ammount   int
 }
 
+var instructions []Instruction = buildInstructionList()
+
 func buildInstructionList() []Instruction {
 	var ins []Instruction
 	file, _ := os.Open("./day2Input.txt")
@@ -32,10 +34,9 @@ func buildInstructionList() []Instruction {
 }
 
 func part1() {
-	ins := buildInstructionList()
 	var horizontal int
 	var depth int
-	for _, v := range ins {
+	for _, v := range instructions {
 		switch v.direction {
 		case "forward":
 			horizontal += v.ammount
@@ -52,11 +53,10 @@ func part1() {
 }
 
 func part2() {
-	ins := buildInstructionList()
 	var aim int
 	var horizontal int
 	var depth int
-	for _, v := range ins {
+	for _, v := range instructions {
 		switch v.direction {
 		case "forward":
 			horizontal += v.ammount
