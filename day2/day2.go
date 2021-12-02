@@ -10,27 +10,62 @@ import (
 
 func main() {
 	part1()
+	part2()
 }
 
-func buildMapOfInput() map[string]int {
-	m := make(map[string]int)
+type Instruction struct {
+	direction string
+	ammount   int
+}
+
+func buildInstructionList() []Instruction {
+	var ins []Instruction
 	file, _ := os.Open("./day2Input.txt")
 	scanner := bufio.NewScanner(file)
 	for scanner.Scan() {
 		s := strings.Split(scanner.Text(), " ")
-		//fmt.Println(s[0])
 		i, _ := strconv.ParseInt(s[1], 10, 32)
-		m[s[0]] += int(i)
+		ins = append(ins, Instruction{direction: s[0], ammount: int(i)})
+
 	}
-	return m
+	return ins
 }
 
 func part1() {
-	m := buildMapOfInput()
-	var x int
-	var y int
-	x += m["forward"]
-	y += m["down"]
-	y -= m["up"]
-	fmt.Printf("x=%d,y=%d , product=%d\n", x, y, x*y)
+	ins := buildInstructionList()
+	var horizontal int
+	var depth int
+	for _, v := range ins {
+		switch v.direction {
+		case "forward":
+			horizontal += v.ammount
+		case "down":
+			depth += v.ammount
+		case "up":
+			depth -= v.ammount
+		default:
+			fmt.Printf("Default %s %d\n", v.direction, v.ammount)
+		}
+	}
+	fmt.Printf("part1: %d\n", horizontal*depth)
+
+}
+
+func part2() {
+	ins := buildInstructionList()
+	var aim int
+	var horizontal int
+	var depth int
+	for _, v := range ins {
+		switch v.direction {
+		case "forward":
+			horizontal += v.ammount
+			depth += aim * v.ammount
+		case "down":
+			aim += v.ammount
+		case "up":
+			aim -= v.ammount
+		}
+	}
+	fmt.Printf("Part2: %d\n", horizontal*depth)
 }
